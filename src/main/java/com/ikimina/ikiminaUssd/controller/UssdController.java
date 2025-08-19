@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ikimina.ikiminaUssd.model.Savings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +22,7 @@ import com.ikimina.ikiminaUssd.service.SavingsService;
 import com.ikimina.ikiminaUssd.service.UserService;
 
 @RestController
+@RequestMapping("/ussd")
 public class UssdController {
     private static final Map<String, String> userLanguages = new HashMap<>();
     private static final Map<String, String> translations = new HashMap<>();
@@ -275,7 +278,7 @@ public class UssdController {
                     endDate.minusWeeks(1) : endDate.minusMonths(1);
                 
                 Double savings = savingsService.getUserSavingsByPeriod(phoneNumber, startDate, endDate)
-                    .stream().mapToDouble(s -> s.getAmount()).sum();
+                    .stream().mapToDouble(Savings::getAmount).sum();
                     
                 return "END " + getTranslation("report", language, savings, input[1].equals("1") ? "last week" : "last month");
             } catch (Exception e) {

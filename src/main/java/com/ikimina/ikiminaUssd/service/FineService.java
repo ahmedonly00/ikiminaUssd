@@ -38,8 +38,8 @@ public class FineService {
         fine.setAmount(fineDTO.getAmount());
         fine.setDate(LocalDate.now());
         fine.setUser(user);
-
         return fineRepository.save(fine);
+
     }
 
     public List<Fines> getUserFines(String phoneNumber) {
