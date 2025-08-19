@@ -11,7 +11,6 @@ import com.ikimina.ikiminaUssd.model.User;
 import com.ikimina.ikiminaUssd.service.UserService;
 
 @RestController
-@RequestMapping("/ussd/admin")
 public class AdminController {
     
     @Autowired
